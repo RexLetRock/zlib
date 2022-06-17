@@ -1,0 +1,6 @@
+github.com/petermattis/goid v0.0.0-20220526132513-07eaf5d0b9f4 h1:COozsq2xbSoZ6kt+/iHGF7eQqiUZr2uxQoAe4OzNkhE=
+github.com/petermattis/goid v0.0.0-20220526132513-07eaf5d0b9f4/go.mod h1:pxMtw7cyUw6B2bRH0ZBANSPg+AoSud1I1iyJHI69jH4=
+github.com/valyala/fastrand v1.1.0 h1:f+5HkLW4rsgzdNoleUOB69hyT9IlD2ZQh9GyDMfb5G8=
+github.com/valyala/fastrand v1.1.0/go.mod h1:HWqCzkrkg6QXT8V2EXWvXCoow7vLwOFN002oeRzjapQ=
+go.linecorp.com/garr v0.1.1 h1:eBKzSKV2pwEyqxxkWzIHFj+utjtOKYYcX8gorYLBz1Q=
+go.linecorp.com/garr v0.1.1/go.mod h1:xqyZc+99gJVcjyCcpbSywIfU7iaHGdOQNHgR0ZwN6rw=

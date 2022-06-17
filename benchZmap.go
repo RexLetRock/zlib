@@ -28,11 +28,8 @@ func main() {
 func benchZMap() {
   SRC := zmap.New[User](NRun)
   fmt.Printf("\n\n=== ZMAP ===\n")
+
   fmt.Printf("\n== SET %v threads\n", NCpu)
-  n.reset()
-  zbench.Run(NRun, NCpu, func(i, _ int) {
-    n.inc()
-  })
   zbench.Run(NRun, NCpu, func(i, _ int) {
     SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
   })
@@ -41,7 +38,13 @@ func benchZMap() {
     SRC.ZGetAt(i)
   })
 
-  fmt.Printf("\n== ZMAP ADD 1 THREAD \n")
+  fmt.Printf("\n== ADD %v threads\n", NCpu)
+  n.reset()
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    n.inc()
+  })
+
+  fmt.Printf("\n== ADD 1 THREAD \n")
   S1 := zmap.New[User](NRun)
   zbench.Run(NRun, 1, func(i, _ int) {
     S1.Add(SRC.ZGetAt(i))
@@ -56,7 +59,7 @@ func benchZMap() {
   })
   fmt.Printf(" ↳ ERROR %v \n", n.get())
 
-  fmt.Printf("\n== ZMAP ADD 12 THREAD & GETALL \n")
+  fmt.Printf("\n== ADD 12 THREAD & GETALL & TEST CONCURRENT \n")
   S2 := zmap.New[User](NRun)
   zbench.Run(NRun / 2, NCpu, func(i, _ int) {
     S2.Add(SRC.ZGetAt(i))

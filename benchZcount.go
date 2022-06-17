@@ -5,14 +5,14 @@ import (
   "os"
   "fmt"
 
-  "github.com/RexLetRock/zlib/zid"
+  "github.com/RexLetRock/zlib/zcount"
   "github.com/RexLetRock/zlib/zbench"
 )
 
 var (
   NRun = 10_000_000
   NCpu = 12
-  n = zid.NewAtomic()
+  n = zcount.Counter{}
 )
 
 func main() {
@@ -24,28 +24,23 @@ func main() {
 }
 
 func benchZID() {
-  fmt.Printf("\n\n=== ATOMIC ===\n")
+  fmt.Printf("\n\n=== ZCOUNT ===\n")
+  fmt.Printf("\n== RUN %v threads\n", NCpu)
 
-  fmt.Printf("\n== RUN 1 threads\n")
-  n.Reset()
-  zbench.Run(NRun, 1, func(_, _ int) {
-    n.Next()
+  a := zcount.New()
+  zbench.Run(NRun, NCpu, func(_, _ int) {
+    a.Inc()
   })
+
+  fmt.Printf("COUNT %v \n", a.Get())
 
   fmt.Printf("\n== RUN %v threads - race\n", NCpu)
   n.Reset()
   zbench.Run(NRun, NCpu, func(_, _ int) {
-    n.Next()
+    n.Inc()
   })
 
-  fmt.Printf("\n\n=== ZID ===\n")
-  fmt.Printf("\n== RUN 1 threads\n")
-  ZID := zid.New("default")
-  zbench.Run(NRun, 1, func(_, _ int) {
-    _ = ZID.Next()
-  })
-  fmt.Printf("\n== RUN %v threads - race\n", NCpu)
   zbench.Run(NRun, NCpu, func(_, _ int) {
-    _ = ZID.Next()
+    n.Value()
   })
 }
