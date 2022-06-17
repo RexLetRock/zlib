@@ -30,7 +30,7 @@ func benchZID() {
   zbench.Run(NRun, 1, func(_, _ int) {
     _ = ZID.Next()
   })
-  fmt.Printf("\n== RUN %v threads\n", NCpu)
+  fmt.Printf("\n== RUN %v threads - race\n", NCpu)
   zbench.Run(NRun, NCpu, func(_, _ int) {
     _ = ZID.Next()
   })
