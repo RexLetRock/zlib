@@ -71,17 +71,17 @@ type cstripe struct {
 }
 
 // Inc increments the counter by 1.
-func (c *Counter) Inc() {
-	c.Add(1)
+func (c *Counter) Inc() int64 {
+	return c.Add(1)
 }
 
 // Dec decrements the counter by 1.
-func (c *Counter) Dec() {
-	c.Add(-1)
+func (c *Counter) Dec() int64 {
+	return c.Add(-1)
 }
 
 // Add adds the delta to the counter.
-func (c *Counter) Add(delta int64) {
+func (c *Counter) Add(delta int64) int64 {
 	t, ok := ptokenPool.Get().(*ptoken)
 	if !ok {
 		t = new(ptoken)
@@ -91,6 +91,24 @@ func (c *Counter) Add(delta int64) {
 	stripe := &c.stripes[t.idx]
 	atomic.AddInt64(&stripe.c, delta)
   // stripe.c += delta
+	ptokenPool.Put(t)
+  return c.Value()
+}
+
+func (c *Counter) IncZ() {
+	c.AddZ(1)
+}
+
+// Add adds the delta to the counter.
+func (c *Counter) AddZ(delta int64) {
+	t, ok := ptokenPool.Get().(*ptoken)
+	if !ok {
+		t = new(ptoken)
+		// Since cstripes is a power of two, we can use & instead of %.
+		t.idx = uint32(hash64(uintptr(unsafe.Pointer(t))) & (cstripes - 1))
+	}
+	stripe := &c.stripes[t.idx]
+	atomic.AddInt64(&stripe.c, delta)
 	ptokenPool.Put(t)
 }
 

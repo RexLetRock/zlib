@@ -10,7 +10,7 @@ import (
 )
 
 var (
-  NRun = 10_000_000
+  NRun = 20_000_000
   NCpu = 12
   n = zcount.Counter{}
 )
@@ -26,18 +26,17 @@ func main() {
 func benchZID() {
   fmt.Printf("\n\n=== ZCOUNT ===\n")
   fmt.Printf("\n== RUN %v threads\n", NCpu)
-
   a := zcount.New()
-  zbench.Run(NRun, NCpu, func(_, _ int) {
-    a.Inc()
+  zbench.Run(NRun, NCpu, func(_, i int) {
+    a.Add(i)
   })
+  a.Get()
 
-  fmt.Printf("COUNT %v \n", a.Get())
-
+  fmt.Printf("\n\n=== LONGADDER ===\n")
   fmt.Printf("\n== RUN %v threads - race\n", NCpu)
   n.Reset()
   zbench.Run(NRun, NCpu, func(_, _ int) {
-    n.Inc()
+    n.IncZ()
   })
 
   zbench.Run(NRun, NCpu, func(_, _ int) {

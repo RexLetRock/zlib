@@ -1,32 +1,56 @@
 package zcount
 
 import (
-  "github.com/RexLetRock/goid"
+  "fmt"
+  "github.com/RexLetRock/zlib/zgoid"
 )
 
 const (
-  size = 1_000
+  size = 1_00
+  trunkSize = 10_000_000
 )
 
 type ZC struct {
-  m []int
+  n []int
+  m [][]int
+  // mutex sync.Mutex
 }
 
 func New() *ZC {
   tr := new(ZC)
-  tr.m = make([]int, size)
+  tr.n = make([]int, size)
+  tr.m = make([][]int, size)
   return tr
 }
 
-func (tr *ZC) Inc() {
-  i := goid.Get()
-  tr.m[i] += 1
+func (tr *ZC) Add(item int) {
+  i := zgoid.Get()
+  tr.n[i] += 1
+  index := tr.n[i]-1
+  if index == 0 {
+    tr.m[i] = make([]int, trunkSize)
+  }
+  tr.m[i][index] = item + 1
 }
 
-func (tr *ZC) Get() int {
-  result := 0
-  for _, v := range tr.m {
-    result += v
+func Len(items []int) int {
+  n := 0
+  for _, v := range items {
+    if v != 0 {
+      n++
+    }
   }
-  return result
+  return n
+}
+
+func (tr *ZC) Get() {
+  m := 0
+  for i, v := range tr.m {
+    n := Len(v)
+    m += n
+    if n != 0 {
+      fmt.Printf("- %v %v \n", i, n)
+    }
+  }
+  fmt.Printf("Total %v \n", m)
 }
