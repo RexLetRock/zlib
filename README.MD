@@ -147,9 +147,9 @@ Distributed under Copyright License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@RexLetRock](https://twitter.com/RexLetRock) - RexLetRock@example.com
+Your Name - [@RexLetRock](https://twitter.com/RexLetRock) - RexLetRock@gmail.com
 
-Project Link - [https://github.com/RexLetRock/repo_name](https://github.com/RexLetRock/zlib)
+Project Link - [https://github.com/RexLetRock/zlib](https://github.com/RexLetRock/zlib)
 
 
 
