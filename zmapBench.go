@@ -6,8 +6,8 @@ import (
   "os"
   "fmt"
 
-  "zql/zbench"
-  "zql/zmap"
+  "github.com/RexLetRock/zlib/zbench"
+  "github.com/RexLetRock/zlib/zmap"
 )
 
 var (
@@ -27,16 +27,16 @@ func main() {
 
 func benchZMap() {
   SRC := zmap.New[User](NRun)
-  zbench.Run(NRun, 1, func(i, _ int) {
+  zbench.Run(NRun, NCpu, func(i, _ int) {
     SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
   })
 
-  fmt.Printf("\n\n=== ZQUEUE ===\n")
-  fmt.Printf("\nZQUEUE ADD 1 THREAD \n")
+  fmt.Printf("\n\n=== ZMAP ===\n")
+  fmt.Printf("\nZMAP ADD 1 THREAD \n")
 
   S1 := zmap.New[User](NRun)
   zbench.Run(NRun, 1, func(i, _ int) {
-    S1.Add(SRC.GetAt(i))
+    S1.Add(SRC.ZGetAt(i))
   })
 
   n.reset()
@@ -49,24 +49,24 @@ func benchZMap() {
   fmt.Printf("ERROR %v \n", n.get())
 
 
-  fmt.Printf("\n\nZQUEUE ADD 12 THREAD & GETALL \n")
+  fmt.Printf("\n\nZMAP ADD 12 THREAD & GETALL \n")
   S2 := zmap.New[User](NRun)
   zbench.Run(NRun / 2, NCpu, func(i, _ int) {
-    S2.Add(SRC.GetAt(i))
+    S2.Add(SRC.ZGetAt(i))
   })
   S2A := S2.GetAll()
   SARR := zmap.New[User](NRun)
   for _, vS2A := range S2A {
-    SARR.SetAt(vS2A.GID(), SRC.GetAt(i))
+    SARR.SetAt(vS2A.IID(), SRC.ZGetAt(vS2A.IID()))
   }
 
   n.reset()
   zbench.Run(NRun, NCpu, func(i, _ int) {
     u, _ := SARR.GetAt(i)
-    if i == u.GID()  {
+    if i == u.IID()  {
       m.inc()
     }
-    if i != u.GID() && u.GID() != 0 {
+    if i != u.IID() && u.IID() != 0 {
       n.inc()
     }
   })

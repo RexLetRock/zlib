@@ -45,3 +45,19 @@ func (tr *ZMap[T]) Clean() {
   tr.count.reset()
   tr.mutex.Unlock()
 }
+
+// Fast function, not check success
+func (tr *ZMap[T]) ZSetAt(index int, item T) T {
+  if index >= tr.size {
+    return *new(T)
+  }
+  tr.items[index] = item
+  return item
+}
+
+func (tr *ZMap[T]) ZGetAt(index int) T {
+  if index >= tr.size {
+    return *new(T)
+  }
+  return tr.items[index]
+}

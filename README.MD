@@ -14,10 +14,10 @@
     <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
-  <h3 align="center">ZDB</h3>
+  <h3 align="center">ZLIB</h3>
 
   <p align="center">
-    ZDB
+    ZLIB - TOOL FOR EASY FAST GOLANG
     <br />
     <a href="https://github.com/"><strong>Explore the docs »</strong></a>
     <br />
