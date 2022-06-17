@@ -11,7 +11,7 @@
 <br />
 <p align="center">
   <a href="http://github.com">
-    <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
+    <img src="extra/images/logo.png" alt="Logo" width="80" height="80"
   </a>
 
   <h3 align="center">ZLIB</h3>
