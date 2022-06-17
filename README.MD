@@ -18,6 +18,7 @@
 
   <p align="center">
     ZLIB - TOOL FOR EASY FAST GO CODE
+    <br />
     <a href="https://github.com/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
