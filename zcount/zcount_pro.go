@@ -12,14 +12,14 @@ const (
 
 type ZC struct {
   n []int
-  m [][]int
+  m map[int]int
   // mutex sync.Mutex
 }
 
 func New() *ZC {
   tr := new(ZC)
   tr.n = make([]int, size)
-  tr.m = make([][]int, size)
+  tr.m = map[][]int{}
   return tr
 }
 
