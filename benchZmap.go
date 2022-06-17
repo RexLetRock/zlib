@@ -29,10 +29,10 @@ func benchZMap() {
   SRC := zmap.New[User](NRun)
   fmt.Printf("\n\n=== ZMAP ===\n")
   fmt.Printf("\n== SET %v threads\n", NCpu)
+  n.reset()
   zbench.Run(NRun, NCpu, func(i, _ int) {
-    int32(i)
+    n.inc()
   })
-  
   zbench.Run(NRun, NCpu, func(i, _ int) {
     SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
   })

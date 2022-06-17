@@ -17,8 +17,7 @@
   <h3 align="center">ZLIB</h3>
 
   <p align="center">
-    ZLIB - TOOL FOR EASY FAST GOLANG
-    <br />
+    ZLIB - TOOL FOR EASY FAST GO CODE
     <a href="https://github.com/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
@@ -63,7 +62,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-Zcode help gen code with fastest template make work done !!!
+ZLIB help go code with safe and simple !!!
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
