@@ -30,6 +30,10 @@ func benchZMap() {
   fmt.Printf("\n\n=== ZMAP ===\n")
   fmt.Printf("\n== SET %v threads\n", NCpu)
   zbench.Run(NRun, NCpu, func(i, _ int) {
+    int32(i)
+  })
+  
+  zbench.Run(NRun, NCpu, func(i, _ int) {
     SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
   })
   fmt.Printf("\n== GET %v threads\n", NCpu)
