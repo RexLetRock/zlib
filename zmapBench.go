@@ -30,6 +30,9 @@ func benchZMap() {
   zbench.Run(NRun, NCpu, func(i, _ int) {
     SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
   })
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    SRC.ZGetAt(i)
+  })
 
   fmt.Printf("\n\n=== ZMAP ===\n")
   fmt.Printf("\nZMAP ADD 1 THREAD \n")
