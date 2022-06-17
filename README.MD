@@ -130,9 +130,9 @@ See the [open issues](https://github.com/) for a list of proposed features (and 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. bItem contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/ZFeature`)
+3. Commit your Changes (`git commit -m 'Add some ZFeature'`)
+4. Push to the Branch (`git push origin feature/ZFeature`)
 5. Open a Pull Request
 
 
@@ -148,7 +148,6 @@ Distributed under Copyright License. See `LICENSE` for more information.
 ## Contact
 
 Your Name - [@RexLetRock](https://twitter.com/RexLetRock) - RexLetRock@gmail.com
-
 Project Link - [https://github.com/RexLetRock/zlib](https://github.com/RexLetRock/zlib)
 
 
