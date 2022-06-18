@@ -173,16 +173,17 @@ Project Link - [https://github.com/RexLetRock/zlib](https://github.com/RexLetRoc
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/RexLetRock/zlib.svg?style=for-the-badge
+<!-- ?style=for-the-badge -->
+[contributors-shield]: https://img.shields.io/github/contributors/RexLetRock/zlib.svg
 [contributors-url]: https://github.com/RexLetRock/zlib/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/RexLetRock/zlib.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/RexLetRock/zlib.svg
 [forks-url]: https://github.com/RexLetRock/zlib/network/members
-[stars-shield]: https://img.shields.io/github/stars/RexLetRock/zlib.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/RexLetRock/zlib.svg
 [stars-url]: https://github.com/RexLetRock/zlib/stargazers
-[issues-shield]: https://img.shields.io/github/issues/RexLetRock/zlib.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/RexLetRock/zlib.svg
 [issues-url]: https://github.com/RexLetRock/zlib/issues
-[license-shield]: https://img.shields.io/github/license/RexLetRock/zlib.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/RexLetRock/zlib.svg
 [license-url]: https://github.com/RexLetRock/zlib/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/rexletrock
 [product-screenshot]: images/screenshot.png
