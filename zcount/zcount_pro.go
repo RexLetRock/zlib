@@ -5,21 +5,20 @@ import (
   "github.com/RexLetRock/zlib/zgoid"
 )
 
-const (
-  size = 1_00
-  trunkSize = 10_000_000
+var (
+  size = 1_000_000
+  trunkSize = 20_000_000
 )
 
 type ZC struct {
   n []int
-  m map[int]int
-  // mutex sync.Mutex
+  m [][]int
 }
 
 func New() *ZC {
   tr := new(ZC)
   tr.n = make([]int, size)
-  tr.m = map[][]int{}
+  tr.m = make([][]int, size)
   return tr
 }
 
@@ -45,11 +44,12 @@ func Len(items []int) int {
 
 func (tr *ZC) Get() {
   m := 0
-  for i, v := range tr.m {
-    n := Len(v)
+  for i := range tr.m {
+    n := tr.n[i]
     m += n
     if n != 0 {
-      fmt.Printf("- %v %v \n", i, n)
+      // fmt.Printf("- %v %v \n", i, n)
+      // fmt.Printf("%v \n", v)
     }
   }
   fmt.Printf("Total %v \n", m)

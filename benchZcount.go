@@ -27,7 +27,7 @@ func benchZID() {
   fmt.Printf("\n\n=== ZCOUNT ===\n")
   fmt.Printf("\n== RUN %v threads\n", NCpu)
   a := zcount.New()
-  zbench.Run(NRun, NCpu, func(_, i int) {
+  zbench.Run(NRun, 1, func(i, _ int) {
     a.Add(i)
   })
   a.Get()
