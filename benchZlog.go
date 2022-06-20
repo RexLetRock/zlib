@@ -5,14 +5,13 @@ import (
   "os"
   "fmt"
 
-  "github.com/RexLetRock/zlib/zcount"
+  "github.com/RexLetRock/zlib/zlog"
   "github.com/RexLetRock/zlib/zbench"
 )
 
 var (
   NRun = 20_000_000
   NCpu = 12
-  n = zcount.Counter{}
 )
 
 func main() {
@@ -26,20 +25,9 @@ func main() {
 func benchZID() {
   fmt.Printf("\n\n=== ZCOUNT ===\n")
   fmt.Printf("\n== RUN %v threads\n", NCpu)
-  a := zcount.New()
+  a := zlog.New()
   zbench.Run(NRun, 1, func(i, _ int) {
     a.Add(i)
   })
   a.Get()
-
-  fmt.Printf("\n\n=== LONGADDER ===\n")
-  fmt.Printf("\n== RUN %v threads - race\n", NCpu)
-  n.Reset()
-  zbench.Run(NRun, NCpu, func(_, _ int) {
-    n.IncZ()
-  })
-
-  zbench.Run(NRun, NCpu, func(_, _ int) {
-    n.Value()
-  })
 }
