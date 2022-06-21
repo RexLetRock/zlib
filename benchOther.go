@@ -21,6 +21,8 @@ import (
   "github.com/kpango/gache"
 
   ccmap "github.com/orcaman/concurrent-map"
+
+  "github.com/sigurn/crc16"
 )
 
 func newBTreeM() *tbtree.Map[int, string] {
@@ -41,6 +43,10 @@ func main() {
 }
 
 func benchZID() {
+  table := crc16.MakeTable(crc16.CRC16_MAXIM)
+	crc := crc16.Checksum([]byte("Hello world!"), table)
+	fmt.Printf("CRC-16 MAXIM: %X\n", crc)
+
   strArr := make([]string, NRun + 1)
   for i := 0; i <= NRun; i++ {
     strArr[i] = strconv.Itoa(i)
@@ -139,6 +145,8 @@ func benchZID() {
   zbench.Run(NRun, 1, func(i, _ int) {
     ExMap[i] = i
   })
+
+
 }
 
 const trunkNumb = 1_000_000
