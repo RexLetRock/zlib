@@ -1,3 +1,5 @@
+// NOTE: LongAdder, for counting not lock (tradeof GET/SET)
+
 package zcount
 
 import (

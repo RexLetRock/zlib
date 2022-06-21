@@ -7,10 +7,12 @@ import (
 
   "github.com/RexLetRock/zlib/zlog"
   "github.com/RexLetRock/zlib/zbench"
+
+  "github.com/RexLetRock/zlib/extra/model"
 )
 
 var (
-  NRun = 20_000_000
+  NRun = 20_311_123
   NCpu = 12
 )
 
@@ -25,9 +27,8 @@ func main() {
 func benchZID() {
   fmt.Printf("\n\n=== ZCOUNT ===\n")
   fmt.Printf("\n== RUN %v threads\n", NCpu)
-  a := zlog.New()
-  zbench.Run(NRun, 1, func(i, _ int) {
-    a.Add(i)
+  a := zlog.NewGenericv2[model.User](1_000_000)
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    a.Add(model.User{ ID: i + 1, Name: "Le Vo Huu Tai" })
   })
-  a.Get()
 }

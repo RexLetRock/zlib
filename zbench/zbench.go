@@ -1,3 +1,4 @@
+// Bench Simple
 package zbench
 
 import (

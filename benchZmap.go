@@ -8,6 +8,8 @@ import (
 
   "github.com/RexLetRock/zlib/zbench"
   "github.com/RexLetRock/zlib/zmap"
+
+  "github.com/RexLetRock/zlib/extra/model"
 )
 
 var (
@@ -26,12 +28,12 @@ func main() {
 }
 
 func benchZMap() {
-  SRC := zmap.New[User](NRun)
+  SRC := zmap.New[model.User](NRun)
   fmt.Printf("\n\n=== ZMAP ===\n")
 
   fmt.Printf("\n== SET %v threads\n", NCpu)
   zbench.Run(NRun, NCpu, func(i, _ int) {
-    SRC.SetAt(i, User{ ID: i, Name: "Le Vo Huu Tai" })
+    SRC.SetAt(i, model.User{ ID: i, Name: "Le Vo Huu Tai" })
   })
   fmt.Printf("\n== GET %v threads\n", NCpu)
   zbench.Run(NRun, NCpu, func(i, _ int) {
@@ -45,7 +47,7 @@ func benchZMap() {
   })
 
   fmt.Printf("\n== ADD 1 THREAD \n")
-  S1 := zmap.New[User](NRun)
+  S1 := zmap.New[model.User](NRun)
   zbench.Run(NRun, 1, func(i, _ int) {
     S1.Add(SRC.ZGetAt(i))
   })
@@ -60,12 +62,12 @@ func benchZMap() {
   fmt.Printf(" ↳ ERROR %v \n", n.get())
 
   fmt.Printf("\n== ADD 12 THREAD & GETALL & TEST CONCURRENT \n")
-  S2 := zmap.New[User](NRun)
+  S2 := zmap.New[model.User](NRun)
   zbench.Run(NRun / 2, NCpu, func(i, _ int) {
     S2.Add(SRC.ZGetAt(i))
   })
   S2A := S2.GetAll()
-  SARR := zmap.New[User](NRun)
+  SARR := zmap.New[model.User](NRun)
   for _, vS2A := range S2A {
     SARR.SetAt(vS2A.IID(), SRC.ZGetAt(vS2A.IID()))
   }
@@ -96,19 +98,4 @@ func (c *count32) set(item int) int {
 }
 func (c *count32) reset() int {
   return int(atomic.SwapInt32((*int32)(c), 0))
-}
-
-type User struct {
-  ID int
-  Name string
-  Extra string
-  DID string
-}
-
-func User_indexID (a, b User) bool {
-  return a.ID < b.ID
-}
-
-func (p User) IID() int {
-  return p.ID
 }

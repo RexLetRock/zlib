@@ -1,3 +1,4 @@
+// Map Superfast With : Int Array
 package zmap
 
 func New[T Item](size int) *ZMap[T] {

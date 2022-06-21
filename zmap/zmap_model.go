@@ -20,7 +20,7 @@ func (c *count32) reset() int {
 }
 
 type Item interface {
-  IID() int
+  // IID() int
 }
 
 type ZMap[T Item] struct {
