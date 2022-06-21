@@ -32,6 +32,8 @@ github.com/puzpuzpuz/xsync v1.2.1 h1:faRb6HT9XN3IAhnE7IP0TnPpokPK42qFKXkhQVkWNwM
 github.com/puzpuzpuz/xsync v1.2.1/go.mod h1:K98BYhX3k1dQ2M63t1YNVDanbwUPmBCAhNmVrrxfiGg=
 github.com/rxdevgod/zcache v0.0.0-20210623141044-ad41ad83bcaf h1:405Jjl63vm/gBHEcmW1+O4E6nmqbdxqX10iEhfQ4iNc=
 github.com/rxdevgod/zcache v0.0.0-20210623141044-ad41ad83bcaf/go.mod h1:s5K+/p7i9ROyndS/Mcl9tGZtNq2FTc961ImgxN2pWT0=
+github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3 h1:aQKxg3+2p+IFXXg97McgDGT5zcMrQoi0EICZs8Pgchs=
+github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3/go.mod h1:9/etS5gpQq9BJsJMWg1wpLbfuSnkm8dPF6FdW2JXVhA=
 github.com/tidwall/btree v1.3.1 h1:636+tdVDs8Hjcf35Di260W2xCW4KuoXOKyk9QWOvCpA=
 github.com/tidwall/btree v1.3.1/go.mod h1:LGm8L/DZjPLmeWGjv5kFrY8dL4uVhMmzmmLYmsObdKE=
 github.com/tidwall/lotsa v1.0.2 h1:dNVBH5MErdaQ/xd9s769R31/n2dXavsQ0Yf4TMEHHw8=

@@ -20,6 +20,7 @@ require (
 	github.com/petermattis/goid v0.0.0-20220526132513-07eaf5d0b9f4 // indirect
 	github.com/puzpuzpuz/xsync v1.2.1 // indirect
 	github.com/rxdevgod/zcache v0.0.0-20210623141044-ad41ad83bcaf // indirect
+	github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3 // indirect
 	github.com/tidwall/btree v1.3.1 // indirect
 	github.com/tidwall/lotsa v1.0.2 // indirect
 	github.com/valyala/fastrand v1.1.0 // indirect
