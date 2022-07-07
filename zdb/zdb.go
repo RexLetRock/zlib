@@ -18,16 +18,12 @@ type Item interface {
   ToString() string
 }
 
-// type SItem struct {
-//   ID int
-// }
-
 type Table[T Item] struct {
   name string
   index []string
 
-  tree *Btree[T]
-  data *zmap.ZMap[T]
+  Tree *Btree[T]
+  Data *zmap.ZMap[T]
   log  *zlog.ZLogQueueGenericV2[T]
 }
 
@@ -38,31 +34,44 @@ func NewTable[T Item](dbname string, less func(a, b T) bool) *Table[T] {
   return tr
 }
 
-func (tr *Table[T]) Set(_ int, item T) (T, bool) {
-  tr.tree.Set(item)
-  // tr.log.Add(item)
-  return item, true
-  // return tr.data.SetAt(index, item)
+func (tr *Table[T]) Set(index int, item T) (T, bool) {
+  tr.Tree.Set(item) // tr.log.Add(item)
+  return item, true // tr.Data.SetAt(index, item)
 }
 
-func (tr *Table[T]) Get(key T) (T, bool) {
-  return tr.data.GetAt(key.IID())
+func (tr *Table[T]) Get(index int) (T, bool) {
+  return tr.Data.GetAt(index)
 }
 
-func (tr *Table[T]) GetAt(index int) (T, bool) {
-  return tr.data.GetAt(index)
+func (tr *Table[T]) GetByIndex(item T) (T, bool) {
+  return tr.Tree.Get(item)
 }
 
-func (tr *Table[T]) ZGet(key T) T {
-  i, _ := tr.data.GetAt(key.IID())
+func (tr *Table[T]) GetAtByIndex(index int) (T, bool) {
+  return tr.Tree.GetAt(index)
+}
+
+// Fast get functions start with Z prefix
+func (tr *Table[T]) ZGet(index int) T {
+  i, _ := tr.Data.GetAt(index)
+  return i
+}
+
+func (tr *Table[T]) ZGetByIndex(item T) T {
+  i, _ := tr.Tree.Get(item)
+  return i
+}
+
+func (tr *Table[T]) ZGetAtByIndex(index int) T {
+  i, _ := tr.Tree.GetAt(index)
   return i
 }
 
 func newTable[T Item](dbname string, less func(a, b T) bool) *Table[T] {
   tr := new(Table[T])
-  tr.tree = NewBtree[T](less)
-  tr.data = zmap.New[T](dataSize)
-  tr.log = zlog.NewGenericv2[T](logSize)
+  tr.Tree = NewBtree[T](less)
+  tr.Data = zmap.New[T](dataSize)
+  tr.log = zlog.NewV2[T](logSize)
   tr.name = dbname
   return tr
 }

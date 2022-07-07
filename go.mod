@@ -27,5 +27,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.linecorp.com/garr v0.1.1 // indirect
 	golang.design/x/lockfree v0.0.1 // indirect
+	golang.org/x/exp v0.0.0-20220325121720-054d8573a5d8 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
+	gopkg.in/OlexiyKhokhlov/avltree.v2 v2.0.1 // indirect
 )

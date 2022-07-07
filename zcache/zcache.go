@@ -15,20 +15,26 @@ type ZCache struct {
   MEmpty interface{}
 }
 
+func New() (tr *ZCache) {
+  return ZCacheCreate()
+}
+
 func ZCacheCreate() (tr *ZCache) {
   tr = new(ZCache)
   tr.MBack = new(MapOf[string, interface{}])
   return
 }
 
-func (tr *ZCache) Set(name string, item interface{}) {
+func (tr *ZCache) Set(name string, item interface{}) bool {
   index := hash(name)
   indexFix := index % mapSize
   if tr.MFlag[indexFix] == 1 || tr.M[indexFix] != tr.MEmpty {
     tr.MFlag[indexFix] = 1
     tr.MBack.Store(name, item)
+    return true
   } else {
     tr.M[indexFix] = item
+    return false
   }
 }
 

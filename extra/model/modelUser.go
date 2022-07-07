@@ -11,7 +11,15 @@ type User struct {
   // DID string
 }
 
-func User_indexID (a, b User) bool {
+func User_Index_Name (a, b User) bool {
+  if a.Name < b.Name {
+    return true
+  }
+
+  if a.Name > b.Name {
+    return false
+  }
+
   return a.ID < b.ID
 }
 

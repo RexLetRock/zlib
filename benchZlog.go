@@ -12,7 +12,7 @@ import (
 )
 
 var (
-  NRun = 20_311_123
+  NRun = 40_311_123
   NCpu = 12
 )
 
@@ -27,8 +27,16 @@ func main() {
 func benchZID() {
   fmt.Printf("\n\n=== ZCOUNT ===\n")
   fmt.Printf("\n== RUN %v threads\n", NCpu)
-  a := zlog.NewGenericv2[model.User](1_000_000)
+  a := zlog.NewV2[model.User](1_000_000)
   zbench.Run(NRun, NCpu, func(i, _ int) {
     a.Add(model.User{ ID: i + 1, Name: "Le Vo Huu Tai" })
   })
+
+  // b := new(zlog.ZCount)
+  // zbench.Run(NRun, NCpu, func(_, _ int) {
+  //   b.Add()
+  // })
+  // zbench.Run(NRun, NCpu, func(_, _ int) {
+  //   b.Retrieve()
+  // })
 }

@@ -1,0 +1,10 @@
+github.com/RexLetRock/zlib v0.0.0-20220621170638-5cf93b9bebd1 h1:dXHlWTuZiBVQYQo8Xu3BYml8Jx2CncyUgTFt8cUl/DA=
+github.com/RexLetRock/zlib v0.0.0-20220621170638-5cf93b9bebd1/go.mod h1:OaQBQ6Ds7+aIpLeiw9v4QKMFpr8hR6uA5CeRQ8U1bwE=
+github.com/segmentio/fasthash v1.0.3 h1:EI9+KE1EwvMLBWwjpRDc+fEM+prwxDYbslddQGtrmhM=
+github.com/segmentio/fasthash v1.0.3/go.mod h1:waKX8l2N8yckOgmSsXJi7x1ZfdKZ4x7KRMzBtS3oedY=
+github.com/tidwall/btree v1.3.1 h1:636+tdVDs8Hjcf35Di260W2xCW4KuoXOKyk9QWOvCpA=
+github.com/tidwall/btree v1.3.1/go.mod h1:LGm8L/DZjPLmeWGjv5kFrY8dL4uVhMmzmmLYmsObdKE=
+github.com/zyedidia/generic v1.1.0 h1:G9kbhNFCZhf2d9SC53RkHQdmMoPwImguLOGx9DW2ADM=
+github.com/zyedidia/generic v1.1.0/go.mod h1:ly2RBz4mnz1yeuVbQA/VFwGjK3mnHGRj1JuoG336Bis=
+golang.org/x/exp v0.0.0-20220218215828-6cf2b201936e h1:iWVPgObh6F4UDtjBLK51zsy5UHTPLQwCmsNjCsbKhQ0=
+golang.org/x/exp v0.0.0-20220218215828-6cf2b201936e/go.mod h1:lgLbSvA5ygNOMpwM/9anMpWVlVJ7Z+cHWq/eFuinpGE=

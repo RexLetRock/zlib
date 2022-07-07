@@ -18,7 +18,7 @@ type ZLogQueueGenericV2[T Item] struct {
   mu sync.Mutex
 }
 
-func NewGenericv2[T Item](trunkSize int) *ZLogQueueGenericV2[T] {
+func NewV2[T Item](trunkSize int) *ZLogQueueGenericV2[T] {
   tr := new(ZLogQueueGenericV2[T])
   tr.trunkSize = trunkSize
   tr.count = make([]int, size)
