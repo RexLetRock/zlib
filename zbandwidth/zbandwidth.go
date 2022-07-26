@@ -1,6 +1,7 @@
 package zbandwidth
 
 import (
+  "fmt"
 	"time"
 	"bufio"
 	"os"
@@ -14,6 +15,10 @@ type ZBandwidth struct {
   nettop *NetTop
   rx *atomic.Value
   tx *atomic.Value
+
+  brx *atomic.Value
+  btx *atomic.Value
+  dif *atomic.Value
 }
 
 func New(iface string) *ZBandwidth {
@@ -24,15 +29,40 @@ func (f *ZBandwidth) Get() (rx float64, tx float64) {
   return f.rx.Load().(float64), f.tx.Load().(float64)
 }
 
+func (f *ZBandwidth) GetRx() (ret float64) {
+  return f.rx.Load().(float64)
+}
+
+func (f *ZBandwidth) GetTx() (ret float64) {
+  return f.tx.Load().(float64)
+}
+
+func (f *ZBandwidth) GetString() (ret string) {
+  if dif := f.dif.Load().(float64); dif != float64(0) {
+    return fmt.Sprintf("\nRx: %v, Tx: %v \n", Vsize(f.brx.Load().(uint64), dif), Vsize(f.btx.Load().(uint64), dif))
+  } else {
+    return fmt.Sprintf("\nRx: 0, Tx: 0 \n")
+  }
+}
+
 func newOptions(iface string) *ZBandwidth {
   f := &ZBandwidth{
     nettop: NewNetTop(),
     rx: new(atomic.Value),
     tx: new(atomic.Value),
+
+    brx: new(atomic.Value),
+    btx: new(atomic.Value),
+    dif: new(atomic.Value),
   }
 
   f.rx.Store(float64(0))
   f.tx.Store(float64(0))
+
+  f.brx.Store(uint64(0))
+  f.btx.Store(uint64(0))
+  f.dif.Store(float64(0))
+
   f.nettop.Interface = iface
 
   f.bgIntervalJob()
@@ -63,6 +93,10 @@ func (f *ZBandwidth) bgIntervalJob() {
 	if stat, ok := delta.Stat[iface]; ok {
     f.rx.Store(float64(stat.Rx)/dtf)
     f.tx.Store(float64(stat.Tx)/dtf)
+
+    f.brx.Store(stat.Rx)
+    f.btx.Store(stat.Tx)
+    f.dif.Store(dtf)
   }
 }
 
@@ -184,4 +218,34 @@ func ReadLines(filename string) ([]string, error) {
 		ret = append(ret, strings.Trim(line, "\n"))
 	}
 	return ret, nil
+}
+
+func Vsize(bytes uint64, delta float64) (ret string) {
+	var tmp float64 = float64(bytes) / delta
+	var s string = " "
+
+	bytes = uint64(tmp)
+
+	switch {
+	case bytes < uint64(2<<9):
+
+	case bytes < uint64(2<<19):
+		tmp = tmp / float64(2<<9)
+		s = "K"
+
+	case bytes < uint64(2<<29):
+		tmp = tmp / float64(2<<19)
+		s = "M"
+
+	case bytes < uint64(2<<39):
+		tmp = tmp / float64(2<<29)
+		s = "G"
+
+	case bytes < uint64(2<<49):
+		tmp = tmp / float64(2<<39)
+		s = "T"
+
+	}
+	ret = fmt.Sprintf("%06.2f %sB/s", tmp, s)
+	return
 }

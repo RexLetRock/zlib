@@ -13,12 +13,13 @@ var (
 )
 
 func main() {
-  zBandwidth := zbandwidth.New("eth0")
+  zBandwidth := zbandwidth.New("enp4s0f1")
   time.Sleep(1 * time.Second)
 
   fmt.Printf("\n\n=== GCACHE ===\n")
 	zbench.Run(NRun, NCpu, func(i, _ int) {
-		a, b := zBandwidth.Get()
-    fmt.Printf("%v %v \n", a, b)
+		zBandwidth.Get()
 	})
+
+  fmt.Printf("%v", zBandwidth.GetString())
 }
