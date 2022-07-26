@@ -71,7 +71,7 @@ func newOptions(iface string) *ZBandwidth {
 }
 
 func (f *ZBandwidth) bgInterval() {
-  ticker := time.NewTicker(100 * time.Millisecond)
+  ticker := time.NewTicker(1000 * time.Millisecond)
   quit := make(chan struct{})
   go func() {
     for {
