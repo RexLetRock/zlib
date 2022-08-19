@@ -20,6 +20,6 @@ func main() {
 	zbench.Run(NRun, NCpu, func(i, _ int) {
 		zBandwidth.Get()
 	})
-
+  fmt.Printf("\nRx: %v, Tx: %v \n", zBandwidth.GetRx() / float64(2<<19), zBandwidth.GetTx() / float64(2<<19))
   fmt.Printf("%v", zBandwidth.GetString())
 }

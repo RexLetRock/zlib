@@ -8,11 +8,12 @@ import (
 	"strconv"
 
 	"hash/fnv"
+  "github.com/segmentio/fasthash/fnv1a"
 
 	_ "github.com/alphadose/zenq"
 	"golang.design/x/lockfree"
 	// "github.com/kpango/fastime"
-	"github.com/Avalanche-io/sled"
+	// "github.com/Avalanche-io/sled"
 	"github.com/hlts2/gfreequeue"
 	tbtree "github.com/tidwall/btree"
 
@@ -30,7 +31,7 @@ func newBTreeM() *tbtree.Map[int, string] {
 }
 
 var (
-	NRun = 5_000_000
+	NRun = 2_000_000
 	NCpu = 12
 )
 
@@ -40,6 +41,12 @@ func main() {
 	fmt.Printf("\n\nStop with ctrl + c \n\n")
 	input := bufio.NewScanner(os.Stdin)
 	input.Scan()
+}
+
+func hashStrToInt(s string) uint32 {
+  h := fnv.New32a()
+  h.Write([]byte(s))
+  return h.Sum32()
 }
 
 func benchZID() {
@@ -70,11 +77,11 @@ func benchZID() {
 		_ = ztime.UnixNanoNow()
 	})
 
-	fmt.Printf("\n\n=== SLED MAP ===\n")
-	sl := sled.New()
-	zbench.Run(NRun, NCpu, func(i, _ int) {
-		sl.Set(strconv.Itoa(i), i)
-	})
+	// fmt.Printf("\n\n=== SLED MAP ===\n")
+	// sl := sled.New()
+	// zbench.Run(NRun, NCpu, func(i, _ int) {
+	// 	sl.Set(strconv.Itoa(i), i)
+	// })
 
 	fmt.Printf("\n\n=== GFREEQUEUE ===\n")
 	ExQueue := gfreequeue.New()
@@ -90,22 +97,32 @@ func benchZID() {
 	tmpV, _ := ttrM.Get(2)
 	fmt.Printf("DATA %v \n", tmpV)
 
+  fmt.Printf("\n\n")
+  fmt.Printf("========================\n")
+  fmt.Printf("===     FAST  MAP    ===\n")
+  fmt.Printf("========================\n")
+
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    fnv1a.HashString32(strArr[i])
+	})
+
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    hashStrToInt(strArr[i])
+	})
+
 	fmt.Printf("\n\n=== FAST MAP GENERIC ===\n")
 	a := 0
 	ExZcache := zcache.ZCacheCreate()
 	zbench.Run(NRun, NCpu, func(i, _ int) {
-		if ExZcache.Set(strArr[i], i) {
-			a += 1
-		}
+    ExZcache.Set(strArr[i], i)
 	})
-	fmt.Printf("SLOW %v \n", a)
-
 	zbench.Run(NRun, NCpu, func(i, _ int) {
-		a := ExZcache.Get(strArr[i])
-		if a.(int) != i {
+    a := ExZcache.Get(strArr[i])
+    if a != nil && a.(int) != i {
 			fmt.Printf("Error %v %v %v \n", a, i, strArr[i])
 		}
 	})
+  fmt.Printf("SLOW %v \n", a)
 
 	fmt.Printf("\n\n=== FAST MAP INT ===\n")
 	ExZcacheInt := zcache.ZCacheIntCreate()
