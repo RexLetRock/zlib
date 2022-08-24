@@ -2,6 +2,8 @@ package main
 
 import (
 	// "sync"
+  "time"
+  "bytes"
 	"bufio"
 	"fmt"
 	"os"
@@ -21,6 +23,9 @@ import (
 	ccmap "github.com/orcaman/concurrent-map"
 	"github.com/sigurn/crc16"
 
+  "github.com/fengyoulin/shm"
+  "github.com/alphadose/haxmap"
+
 	"github.com/RexLetRock/zlib/zbench"
 	"github.com/RexLetRock/zlib/zcache"
 	"github.com/RexLetRock/zlib/ztime"
@@ -31,7 +36,7 @@ func newBTreeM() *tbtree.Map[int, string] {
 }
 
 var (
-	NRun = 2_000_000
+	NRun = 5_000_000
 	NCpu = 12
 )
 
@@ -58,6 +63,32 @@ func benchZID() {
 	for i := 0; i <= NRun; i++ {
 		strArr[i] = strconv.Itoa(i)
 	}
+
+  fmt.Printf("\n\n=== HAX MAP ===\n")
+  haxMap := haxmap.New[int, int]()
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    haxMap.Set(1, 123123)
+  })
+
+  m, _ := shm.Create("map.db", 4096, 40, 32, 20, time.Second)
+  defer m.Close()
+  fmt.Printf("\n\n=== SHM MAP ===\n")
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    m.Get("1a2b3c4d5e6f", true)
+  })
+
+  fmt.Printf("\n\n=== JOIN BYTES ===\n")
+  name := [][]byte{[]byte("Sumit"), []byte("Kumar")}
+  sep := []byte("-")
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    _ = bytes.Join(name, sep)
+  })
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    _ = "Sumit" + "Kumar"
+  })
+  zbench.Run(NRun, NCpu, func(i, _ int) {
+    _ = []byte("Sumit - Kumar ¶")
+  })
 
 	fmt.Printf("\n\n=== GCACHE ===\n")
 	ExGache := gache.GetGache()
